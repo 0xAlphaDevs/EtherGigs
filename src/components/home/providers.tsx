@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { WagmiProvider, createConfig } from "wagmi"
-import { sepolia } from "wagmi/chains"
+import { etherlinkTestnet } from "wagmi/chains"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ConnectKitProvider, getDefaultConfig } from "connectkit"
 
@@ -13,7 +13,7 @@ interface ProvidersProps {
 const config = createConfig(
   getDefaultConfig({
     walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "",
-    chains: [sepolia],
+    chains: [etherlinkTestnet],
     appName: "EtherGigs",
   })
 )
