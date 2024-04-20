@@ -1,8 +1,15 @@
-import React from 'react'
+"use client"
+
+import React, { useState } from 'react'
+import { Proposal } from '@/lib/types';
+import { OngoinJobsTable } from '@/components/gigsters/ongoing-jobs-table';
 
 const GigsterOngoingJobs = () => {
+  const [ongoingProposals, setOngoingProposals] = useState<Proposal[]>([]);
   return (
-    <div>GigsterOngoingJobs</div>
+    <div>
+      <OngoinJobsTable ongoingProposals={ongoingProposals} />
+    </div>
   )
 }
 
