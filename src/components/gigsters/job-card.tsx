@@ -16,6 +16,7 @@ import {
   Briefcase,
   Calendar,
 } from "lucide-react";
+import SendProposalForm from "./send-proposal-form";
 
 export function JobCard({ job }: { job: Job }) {
 
@@ -80,7 +81,9 @@ export function JobCard({ job }: { job: Job }) {
             <Calendar className="h-5" />
             <div className="font-semibold">Posted Date : {job.createdAt}</div>
           </div>
-
+          <div className="flex gap-4">
+            <SendProposalForm jobId={job.jobId.toString()} />
+          </div>
         </CardFooter>
       </Card>
     </div>
