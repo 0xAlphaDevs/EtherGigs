@@ -1,3 +1,5 @@
+"use client"
+
 import { OngoingJobtable } from '@/components/clients/ongoing-job-table'
 import { Proposal } from '@/lib/types';
 import React, { useState } from 'react'
