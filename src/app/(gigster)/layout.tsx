@@ -1,3 +1,5 @@
+import { GigsterNavbar } from "@/components/gigsters/navbar"
+
 export default function GigsterDashboard({
   children,
 }: {
@@ -5,6 +7,7 @@ export default function GigsterDashboard({
 }) {
   return (
     <section className="flex flex-col justify-between px-8 py-4 ">
+      <GigsterNavbar />
       {children}
     </section>
   )
