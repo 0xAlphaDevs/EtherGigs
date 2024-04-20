@@ -1,5 +1,6 @@
 "use client"
 
+import CreateNewJobForm from '@/components/clients/create-new-job-form';
 import { JobCard } from '@/components/clients/job-card'
 import { Job } from '@/lib/types';
 import React, { useState } from 'react'
@@ -8,6 +9,7 @@ const ClientDashboard = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
   return (
     <div>
+      <CreateNewJobForm />
       {jobs.length > 0 ? (
         jobs.map((job: Job) => (
           <>
