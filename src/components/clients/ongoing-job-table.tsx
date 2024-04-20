@@ -37,15 +37,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Filter } from "../home/filter";
 import { Proposal } from "@/lib/types";
 
-
-export function RecievedProposalsTable({
-  jobTitle,
-  receivedProposals,
+export function OngoingJobtable({
+  ongoingProposals,
 }: {
-  jobTitle: string;
-  receivedProposals: Proposal[];
+  ongoingProposals: Proposal[];
 }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -56,41 +54,64 @@ export function RecievedProposalsTable({
   const [rowSelection, setRowSelection] = React.useState({});
   const [proposals, setProposals] = React.useState<Proposal[]>([]);
 
+  React.useEffect(() => {
+    setProposals(ongoingProposals);
+  }, [ongoingProposals]);
+
+  // const statusOptions = React.useMemo(() => {
+  //   const options = ongoingProposals.map((row) => row.status);
+  //   const statuses = [...new Set(options)];
+  //   return statuses.map((status) => ({ value: status, label: status }));
+  // }, [ongoingProposals]);
+
   const columns: ColumnDef<Proposal>[] = [
     {
-      accessorKey: "proposalId",
-      header: "Proposal Id",
+      accessorKey: "jobId",
+      header: "Job Id",
       cell: ({ row }) => {
-        const proposalId = parseInt(row.getValue("proposalId"));
-        return <div className="capitalize">{proposalId}</div>;
+        const jobId = parseInt(row.getValue("jobId"));
+        return <div className="capitalize">{jobId}</div>;
       },
-    },
-    {
-      accessorKey: "description",
-      header: "Description",
-      cell: ({ row }) => <div className="">{row.getValue("description")}</div>,
-    },
-    {
-      accessorKey: "createdAt",
-      header: "Sent Date",
-      cell: ({ row }) => (
-        <div className=" font-semibold px-2 bg-green-50 hover:text-white hover:bg-green-90 inline-block rounded-full ">
-          {row.getValue("createdAt")}
-        </div>
-      ),
     },
     {
       accessorKey: "createdBy",
       header: "Gigster",
       cell: ({ row }) => (
-        <div className="lowercase">{row.getValue("createdBy")}</div>
+        <div className="capitalize">{row.getValue("createdBy")}</div>
       ),
     },
     {
-      accessorKey: "bid",
-      header: () => <div className="">Bid Amount</div>,
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }) => (
+        <div className=" uppercase cursor-default font-semibold px-2 bg-green-50 hover:text-white hover:bg-green-900 inline-block rounded-full ">
+          {row.getValue("status")}
+        </div>
+      ),
+      filterFn: (row, id, value) => {
+        // Here, explicitly specify the type of the 'value' parameter
+        const typedValue = value as "pending" | "accepted" | "rejected";
+        return typedValue.includes(
+          row.getValue(id) as "pending" | "processing" | "success" | "failed"
+        );
+      },
+    },
+    {
+      accessorKey: "createdAt",
+      header: () => <div className="">Start Date</div>,
       cell: ({ row }) => {
-        const amount = parseFloat(row.getValue("bid")) / 10 ** 18;
+        return (
+          <div className=" font-semibold px-2 bg-green-50 hover:text-white hover:bg-green-900 inline-block rounded-full ">
+            {row.getValue("createdAt")}
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "bid",
+      header: () => <div className="">Budget</div>,
+      cell: ({ row }) => {
+        const amount = Number(row.getValue("bid")) / 10 ** 18;
         const formatted = new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
@@ -106,38 +127,9 @@ export function RecievedProposalsTable({
         const proposal = row.original;
 
         return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <DotsHorizontalIcon className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem
-                onClick={() =>
-                  navigator.clipboard.writeText(proposal.proposalId)
-                }
-              >
-                Copy Proposal ID
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Button
-                  className="w-full"
-                >
-                  Approve DeWork
-                </Button>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Button
-                  className="w-full"
-                >
-                  Accept
-                </Button>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Button>
+            Approve Completion
+          </Button>
         );
       },
     },
@@ -164,26 +156,30 @@ export function RecievedProposalsTable({
 
   return (
     <div className="w-full p-12 ">
-      <div className="flex justify-center pb-4">
-        <p className=" font-semibold text-3xl">{jobTitle}</p>
-      </div>
-
       <div className="flex items-center py-4">
-        <Input
-          placeholder="Search a proposal by Id..."
-          value={
-            (table.getColumn("proposalId")?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn("proposalId")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm w-96 font-semibold border-green-900 "
-        />
+        <div className="flex items-center gap-3 py-4">
+          <Input
+            placeholder="Search a job Id..."
+            value={(table.getColumn("jobId")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("jobId")?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm w-96 font-semibold border-green-900"
+          />
+          {/* {table.getColumn("status") && (
+            <Filter
+              column={table.getColumn("status")}
+              title="Status"
+              options={statusOptions}
+            />
+
+          )} */}
+        </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="ml-auto bg-green-300 "
+              className="ml-auto bg-green-300"
             >
               Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
             </Button>
@@ -209,7 +205,7 @@ export function RecievedProposalsTable({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border z-10 shadow-md bg-green-400 bg-opacity-20  my-4 z-80 ">
+      <div className="rounded-md border z-10 shadow-md bg-green-400 bg-opacity-20 my-4 z-80">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -221,7 +217,7 @@ export function RecievedProposalsTable({
                   return (
                     <TableHead
                       key={header.id}
-                      className="font-bold "
+                      className="font-bold"
                     >
                       {header.isPlaceholder
                         ? null
@@ -241,7 +237,7 @@ export function RecievedProposalsTable({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className="font-thin hover:text-green-800 "
+                  className="font-thin hover:text-green-800"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
