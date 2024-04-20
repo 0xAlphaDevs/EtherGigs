@@ -27,17 +27,17 @@ export default function Home() {
         </div>
         {/* Features card div */}
         <div className="grid grid-cols-3 gap-8">
-          <Card className="bg-opacity-65 shadow-lg cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
+          <Card className=" shadow-sm border-none h-full w-full bg-green-400 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
             <CardHeader>
               <CardTitle className="text-center">Decentralized</CardTitle>
-              <CardDescription className="text-center">
+              <CardDescription className="text-center ">
                 EtherGigs is a decentralized freelancing platform connecting
                 businesses and professionals
               </CardDescription>
             </CardHeader>
           </Card>
 
-          <Card className="bg-opacity-65 shadow-lg cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
+          <Card className="shadow-sm border-none h-full w-full bg-green-400 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
             <CardHeader>
               <CardTitle className="text-center"></CardTitle>
               <CardDescription className="text-center">
@@ -46,7 +46,7 @@ export default function Home() {
             </CardHeader>
           </Card>
 
-          <Card className="bg-opacity-65 shadow-lg cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
+          <Card className="shadow-sm border-none h-full w-full bg-green-400 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
             <CardHeader>
               <CardTitle className="text-center"></CardTitle>
               <CardDescription className="text-center">
