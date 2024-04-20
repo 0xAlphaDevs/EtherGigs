@@ -1,8 +1,15 @@
-import React from 'react'
+import { OngoingJobtable } from '@/components/clients/ongoing-job-table'
+import { Proposal } from '@/lib/types';
+import React, { useState } from 'react'
+
 
 const ClientOngoingJobs = () => {
+
+  const [ongoingProposals, setOngoingProposals] = useState<Proposal[]>([]);
   return (
-    <div>ClientOngoingJobs</div>
+    <div className="flex justify-center items-center ">
+      <OngoingJobtable ongoingProposals={ongoingProposals} />
+    </div>
   )
 }
 
