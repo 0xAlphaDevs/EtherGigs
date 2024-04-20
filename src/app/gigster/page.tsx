@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Gigsters = () => {
+const Gigster = () => {
   return (
     <div>Gigsters</div>
   )
 }
 
-export default Gigsters
+export default Gigster
