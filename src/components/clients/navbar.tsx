@@ -28,11 +28,11 @@ export function ClientNavbar() {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link href="/client" legacyBehavior passHref>
+              <Link href="/client-dashboard" legacyBehavior passHref>
                 <NavigationMenuLink
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    pathname === ("/client")
+                    pathname === ("/client-dashboard")
                       ? "bg-green-300"
                       : ""
                   )}
@@ -42,11 +42,11 @@ export function ClientNavbar() {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/client/ongoing-jobs" legacyBehavior passHref>
+              <Link href="/client-ongoing-jobs" legacyBehavior passHref>
                 <NavigationMenuLink
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    pathname === ("/client/ongoing-jobs")
+                    pathname === ("/client-ongoing-jobs")
                       ? "bg-green-300"
                       : ""
                   )}
@@ -56,11 +56,11 @@ export function ClientNavbar() {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/client/wallet" legacyBehavior passHref>
+              <Link href="/client-wallet" legacyBehavior passHref>
                 <NavigationMenuLink
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    pathname === ("/client/wallet")
+                    pathname === ("/client-wallet")
                       ? "bg-green-300"
                       : ""
                   )}
@@ -72,7 +72,7 @@ export function ClientNavbar() {
           </NavigationMenuList>
         </NavigationMenu>
       </div>
-      {/* <ConnectKitButton /> */}
+      <ConnectKitButton />
     </div>
   );
 }

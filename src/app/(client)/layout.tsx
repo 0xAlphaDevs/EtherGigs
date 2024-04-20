@@ -1,5 +1,4 @@
 import { ClientNavbar } from "@/components/clients/navbar"
-import { Providers } from "@/components/home/providers"
 
 export default function ClientDashboard({
   children,
