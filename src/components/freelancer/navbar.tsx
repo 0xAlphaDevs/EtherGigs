@@ -22,17 +22,17 @@ export function FreelancerNavbar() {
         <h1 className="text-2xl font-bold relative mr-12 ">
           EtherGigs{" "}
           <sup className="text-sm font-semibold absolute ml-2 ">
-            Gigster
+            Freelancer
           </sup>
         </h1>
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link href="/gigster-dashboard" legacyBehavior passHref>
+              <Link href="/freelancer-dashboard" legacyBehavior passHref>
                 <NavigationMenuLink
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    pathname === ("/gigster-dashboard")
+                    pathname === ("/freelancer-dashboard")
                       ? "bg-green-300"
                       : ""
                   )}
@@ -42,11 +42,11 @@ export function FreelancerNavbar() {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/gigster-proposals" legacyBehavior passHref>
+              <Link href="/freelancer-proposals" legacyBehavior passHref>
                 <NavigationMenuLink
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    pathname === ("/gigster-proposals")
+                    pathname === ("/freelancer-proposals")
                       ? "bg-green-300"
                       : ""
                   )}
@@ -56,11 +56,11 @@ export function FreelancerNavbar() {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/gigster-ongoing-jobs" legacyBehavior passHref>
+              <Link href="/freelancer-ongoing-jobs" legacyBehavior passHref>
                 <NavigationMenuLink
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    pathname === ("/gigster-ongoing-jobs")
+                    pathname === ("/freelancer-ongoing-jobs")
                       ? "bg-green-300"
                       : ""
                   )}
@@ -70,11 +70,11 @@ export function FreelancerNavbar() {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/gigster-wallet" legacyBehavior passHref>
+              <Link href="/freelancer-wallet" legacyBehavior passHref>
                 <NavigationMenuLink
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    pathname === ("/gigster-wallet")
+                    pathname === ("/freelancer-wallet")
                       ? "bg-green-300"
                       : ""
                   )}
