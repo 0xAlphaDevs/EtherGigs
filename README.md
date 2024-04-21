@@ -70,7 +70,7 @@ Follow these instructions to set up and run the project:
 ### Freenlancer
 
 - Freelancer can view all active jobs and apply to them via a form.
-- All sent proposals will be be displayed in a table under the "Sent Proposals" tab.
+- All sent proposals will be be displayed in a table under the "Proposals" tab.
 - If the proposal is accepted, it will be shown under the ongoing job table from where freelancer have a submit button to submit their work.
 
 ## Team
