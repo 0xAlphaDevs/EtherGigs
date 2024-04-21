@@ -1,13 +1,13 @@
-import { GigsterNavbar } from "@/components/gigsters/navbar"
+import { FreelancerNavbar } from "@/components/freelancer/navbar"
 
-export default function GigsterDashboard({
+export default function FreelancerDashboard({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
     <section className="flex flex-col justify-between px-8 py-4 ">
-      <GigsterNavbar />
+      <FreelancerNavbar />
       {children}
     </section>
   )

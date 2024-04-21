@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from "react";
 import { Job } from "@/lib/types";
 import { Input } from "@/components/ui/input";
-import { JobCard } from "@/components/gigsters/job-card";
+import { JobCard } from "@/components/freelancer/job-card";
 
-const GigsterDashboard = () => {
+const FreelancerDashboard = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
@@ -54,4 +54,4 @@ const GigsterDashboard = () => {
   )
 }
 
-export default GigsterDashboard
+export default FreelancerDashboard

@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react'
 import { Proposal } from '@/lib/types';
-import { OngoinJobsTable } from '@/components/gigsters/ongoing-jobs-table';
+import { OngoinJobsTable } from '@/components/freelancer/ongoing-jobs-table';
 
-const GigsterOngoingJobs = () => {
+const FreelancerOngoingJobs = () => {
   const [ongoingProposals, setOngoingProposals] = useState<Proposal[]>([]);
   return (
     <div>
@@ -13,4 +13,4 @@ const GigsterOngoingJobs = () => {
   )
 }
 
-export default GigsterOngoingJobs
+export default FreelancerOngoingJobs

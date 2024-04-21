@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react'
 import { Proposal } from '@/lib/types';
-import { SendProposalTable } from '@/components/gigsters/send-proposal-table';
+import { SendProposalTable } from '@/components/freelancer/send-proposal-table';
 
 
-const GigsterProposals = () => {
+const FreelancerProposals = () => {
   const [sentProposals, setSentProposals] = useState<Proposal[]>([]);
   return (
     <div>
@@ -14,4 +14,4 @@ const GigsterProposals = () => {
   )
 }
 
-export default GigsterProposals
+export default FreelancerProposals

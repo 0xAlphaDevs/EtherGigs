@@ -2,7 +2,7 @@ import React from 'react'
 import { MapPin } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const GigsterWallet = () => {
+const FreelancerWallet = () => {
   return (
     <div>  <div className="flex flex-col gap-10 p-16">
       <div className='flex flex-col items-center gap-8 pt-8'>
@@ -26,4 +26,4 @@ const GigsterWallet = () => {
   )
 }
 
-export default GigsterWallet
+export default FreelancerWallet

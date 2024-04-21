@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { ConnectKitButton } from "connectkit";
 
-export function GigsterNavbar() {
+export function FreelancerNavbar() {
   const pathname = usePathname()
 
   return (
