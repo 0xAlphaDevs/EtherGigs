@@ -13,7 +13,7 @@ export type Job = {
   status:
     | "active"
     | "ongoing"
-    | "completedbygigster"
+    | "completedbyfreelancer"
     | "approvedbyclient"
     | "closed";
   tags: string[];
