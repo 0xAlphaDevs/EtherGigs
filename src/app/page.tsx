@@ -11,7 +11,6 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Image from "next/image";
 
-
 export default function Home() {
   return (
     <>
@@ -66,7 +65,7 @@ export default function Home() {
         </div>
         {/* Footer */}
         <div className="fixed container mx-auto bottom-0 pb-4 ">
-          <hr className="border-t-2 border-gray-600 dark:border-white mb-4" />
+          <hr className="border-t-2 border-green-900 dark:border-white mb-4" />
           <div className="flex justify-center items-center">
             <p>&copy; 2024 EtherGigs | All rights reserved</p>
           </div>
