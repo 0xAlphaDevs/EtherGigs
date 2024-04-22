@@ -34,12 +34,14 @@ Follow these instructions to set up and run the project:
 
 ## App Demo Screenshots
 
-![image]()
-![image]()
-![image]()
-![image]()
-![image]()
-![image]()
+![image](/public/appDemo/1.png)
+![image](/public/appDemo/2.jpg)
+![image](/public/appDemo/3.jpg)
+![image](/public/appDemo/4.jpg)
+![image](/public/appDemo/5.jpg)
+![image](/public/appDemo/6.jpg)
+![image](/public/appDemo/7.jpg)
+![image](/public/appDemo/8.jpg)
 
 ## Tech Stack
 
