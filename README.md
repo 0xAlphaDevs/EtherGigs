@@ -47,6 +47,7 @@ Follow these instructions to set up and run the project:
 
 ## Tech Stack
 
+- EtherLink Testnet
 - Next JS
 - Typescript
 - Tailwind CSS
