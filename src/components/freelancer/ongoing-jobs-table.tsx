@@ -38,6 +38,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Proposal } from "@/lib/types";
+import { etherGigsAbi, etherGigsAddress } from "@/lib/contract/EtherGigs";
+import { useWriteContract } from "wagmi";
 
 export function OngoinJobsTable({
   ongoingProposals,
@@ -52,6 +54,8 @@ export function OngoinJobsTable({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
   const [proposals, setProposals] = React.useState<Proposal[]>([]);
+
+  const { isSuccess, isPending, writeContract } = useWriteContract({});
 
   React.useEffect(() => {
     setProposals(ongoingProposals);
@@ -91,13 +95,28 @@ export function OngoinJobsTable({
         return <div className=" font-medium">{amount} XTZ</div>;
       },
     },
-    //TO DO
     {
       id: "actions",
       enableHiding: false,
       cell: ({ row }) => {
-        const payment = row.original;
-        return <Button>Submit</Button>;
+        const proposal = row.original;
+
+        return (
+          <Button
+            className="w-full"
+            onClick={() => {
+              console.log("Submit Job Clicked");
+              writeContract({
+                abi: etherGigsAbi,
+                address: etherGigsAddress,
+                functionName: "markJobCompleted",
+                args: [proposal.jobId, proposal.proposalId],
+              });
+            }}
+          >
+            Submit Job
+          </Button>
+        );
       },
     },
   ];

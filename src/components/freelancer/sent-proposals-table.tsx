@@ -93,11 +93,16 @@ export function SentProposalsTable({
     {
       accessorKey: "status",
       header: "Status",
-      cell: ({ row }) => (
-        <div className="uppercase font-bold rounded-full">
-          {row.getValue("status")}
-        </div>
-      ),
+      cell: ({ row }) => {
+        let value: string = row.getValue("status");
+        if (value === "completedbyfreelancer") {
+          value = "JOB COMPLETED";
+        }
+        if (value === "completedbyclient") {
+          value = "PAYMENT RECEIVED";
+        }
+        return <div className="uppercase font-bold rounded-full">{value}</div>;
+      },
       filterFn: (row, id, value) => {
         // Here, explicitly specify the type of the 'value' parameter
         const typedValue = value as string;

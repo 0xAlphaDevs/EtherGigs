@@ -14,7 +14,7 @@ export type Job = {
     | "active"
     | "ongoing"
     | "completedbyfreelancer"
-    | "approvedbyclient"
+    | "completedbyclient"
     | "closed";
   tags: string[];
   budget: number;
@@ -26,7 +26,12 @@ export type Job = {
 export type Proposal = {
   proposalId: string;
   jobId: string;
-  status: "pending" | "accepted" | "rejected";
+  status:
+    | "pending"
+    | "accepted"
+    | "rejected"
+    | "completedbyfreelancer"
+    | "completedbyclient";
   bid: number;
   description: string;
   createdAt: string;

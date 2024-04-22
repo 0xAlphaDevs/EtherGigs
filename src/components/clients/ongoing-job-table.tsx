@@ -39,7 +39,7 @@ import {
 } from "@/components/ui/table";
 import { Filter } from "../home/filter";
 import { Proposal } from "@/lib/types";
-import { useWriteContract } from "wagmi"; // 🟢
+import { useWriteContract } from "wagmi";
 import { etherGigsAbi, etherGigsAddress } from "@/lib/contract/EtherGigs";
 
 export function OngoingJobtable({
@@ -89,11 +89,13 @@ export function OngoingJobtable({
     {
       accessorKey: "status",
       header: "Status",
-      cell: ({ row }) => (
-        <div className=" uppercase cursor-default text-white font-semibold px-2 bg-green-800 hover:text-white hover:bg-green-900 inline-block rounded-full ">
-          {row.getValue("status")}
-        </div>
-      ),
+      cell: ({ row }) => {
+        let value: string = row.getValue("status");
+        if (value === "completedbyfreelancer") {
+          value = "JOB COMPLETED BY FREELANCER";
+        }
+        return <div className="uppercase font-bold rounded-full">{value}</div>;
+      },
       filterFn: (row, id, value) => {
         // Here, explicitly specify the type of the 'value' parameter
         const typedValue = value as "pending" | "accepted" | "rejected";
@@ -129,18 +131,47 @@ export function OngoingJobtable({
         const proposal = row.original;
         // TO DO: approveJobCompletionFunction
         return (
-          <Button
-            onClick={() => {
-              writeContract({
-                abi: etherGigsAbi,
-                address: etherGigsAddress,
-                functionName: "approveJobCompletion",
-                args: [proposal.jobId, proposal.proposalId],
-              });
-            }}
-          >
-            Approve Completion
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <DotsHorizontalIcon className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem
+                onClick={() =>
+                  navigator.clipboard.writeText(proposal.proposalId)
+                }
+              >
+                Copy Proposal ID
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+
+              <DropdownMenuItem>
+                <Button
+                  className="w-full"
+                  onClick={() => {
+                    console.log("Approve Job Clicked");
+                    // ❌
+                    writeContract({
+                      abi: etherGigsAbi,
+                      address: etherGigsAddress,
+                      functionName: "approveJobCompletion",
+                      args: [
+                        proposal.jobId,
+                        proposal.proposalId,
+                        proposal.createdBy,
+                      ],
+                      value: BigInt(0),
+                    });
+                  }}
+                >
+                  Approve Job
+                </Button>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         );
       },
     },

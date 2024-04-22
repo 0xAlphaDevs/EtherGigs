@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -20,9 +20,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CheckCircledIcon } from "@radix-ui/react-icons";
-import { useWriteContract } from "wagmi"; // 🟢
+import { useReadContract, useWriteContract } from "wagmi"; // 🟢
 import { useAccount } from "wagmi";
 import { etherGigsAbi, etherGigsAddress } from "@/lib/contract/EtherGigs";
+import { useRouter } from "next/navigation";
 
 interface FormData {
   name: string;
@@ -32,51 +33,33 @@ interface FormData {
 
 export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
   const { address } = useAccount();
+  const router = useRouter();
 
   const [formData, setFormData] = useState<FormData>({
     name: "",
     userType: "",
     location: "",
   });
-  // 🟢
+
+  const { data: userData } = useReadContract({
+    abi: etherGigsAbi,
+    address: etherGigsAddress,
+    functionName: "getUser",
+    args: [address],
+  });
+
   const { isSuccess, isPending, writeContract } = useWriteContract({});
-
-  function handleClick() {
-    // reset all state values
-    setFormData({
-      name: "",
-      userType: "",
-      location: "",
-    });
-  }
-
-  const constructUser = (name: string, userType: string, location: string) => {
-    const newUser = {
-      name: name,
-      location: location,
-      userType: userType,
-    };
-    return newUser;
-  };
 
   async function createUser() {
     try {
-      const newUser = constructUser(
-        formData.name,
-        formData.userType,
-        formData.location
-      );
       console.log(" Data: ", formData);
       // TO DO: call register function from smart contract 🟢
       writeContract({
         abi: etherGigsAbi,
         address: etherGigsAddress,
         functionName: "createUser",
-        args: [newUser.name, newUser.location, newUser.userType],
+        args: [formData.name, formData.location, formData.userType],
       });
-      setTimeout(() => {
-        setRecheckUser((prev: boolean) => !prev);
-      }, 2000);
     } catch (error) {
       console.error("Error submitting metaData:", error);
     }
@@ -99,14 +82,25 @@ export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
     await createUser();
   };
 
+  useEffect(() => {
+    if (userData) {
+      console.log(userData);
+      //@ts-ignore
+      if (userData.userType == "freelancer")
+        router.push("/freelancer-dashboard");
+      // @ts-ignore
+      else if (userData.userType == "client") {
+        router.push("/client-dashboard");
+      }
+    }
+  }, [userData, isSuccess]);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" onClick={handleClick}>
-          Register
-        </Button>
+        <Button>Register</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] bg-white">
         {isPending ? (
           <div className="flex flex-col items-center justify-center h-40 gap-4">
             <p>Registering user...</p>

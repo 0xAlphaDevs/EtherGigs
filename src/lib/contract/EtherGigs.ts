@@ -1,4 +1,4 @@
-export const etherGigsAddress = "0x3DaA9b9f3Ba4A5828473075CE68C704FEC124E73";
+export const etherGigsAddress = "0xDd28F71e2011B59675fA4822125fCA7e581F1d4D";
 export const etherGigsAbi = [
   {
     anonymous: false,

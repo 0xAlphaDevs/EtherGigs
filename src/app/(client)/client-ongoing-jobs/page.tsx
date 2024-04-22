@@ -20,12 +20,15 @@ const ClientOngoingJobs = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
+      console.log("AllOngoingProposalsForClient", data);
       // filter data based on status
       const filtered = (data as Proposal[]).filter((proposal: Proposal) => {
-        return proposal.status === "accepted";
+        return (
+          proposal.status === "accepted" ||
+          proposal.status === "completedbyfreelancer"
+        );
       });
-      console.log(filtered);
+      // console.log(filtered);
       setOngoingProposals(filtered);
     }
   }, [data]);

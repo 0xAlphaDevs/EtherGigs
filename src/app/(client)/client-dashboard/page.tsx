@@ -22,38 +22,46 @@ const ClientDashboard = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
+      const filterData = (data as Job[]).filter((job: Job) => {
+        return (
+          job.status !== "completedbyfreelancer" &&
+          job.status !== "completedbyclient"
+        );
+      });
 
-      setJobs(data as Job[]);
+      setJobs(filterData as Job[]);
     }
   }, [data]);
 
-  const { data: userData, isError } = useReadContract({
+  const {
+    data: userData,
+    isSuccess,
+    isError,
+  } = useReadContract({
     abi: etherGigsAbi,
     address: etherGigsAddress,
     functionName: "getUser",
     args: [address],
   });
 
-  // 🟡
-  // useEffect(() => {
-  //   if (userData && !isError) {
-  //     //@ts-ignore
-  //     switch (userData.userType) {
-  //       case "client":
-  //         router.push("/client-dashboard");
-  //         break;
-  //       case "freelancer":
-  //         router.push("/freelancer-dashboard");
-  //         break;
-  //       default:
-  //         router.push("/home");
-  //         break;
-  //     }
-  //   } else {
-  //     router.push("/home");
-  //   }
-  // }, [userData, isError]);
+  useEffect(() => {
+    if (userData && !isError) {
+      //@ts-ignore
+      switch (userData.userType) {
+        case "client":
+          router.push("/client-dashboard");
+          break;
+        case "freelancer":
+          router.push("/freelancer-dashboard");
+          break;
+        default:
+          router.push("/home");
+          break;
+      }
+    } else {
+      router.push("/home");
+    }
+  }, [userData, isError]);
 
   useEffect(() => {
     if (!address) {

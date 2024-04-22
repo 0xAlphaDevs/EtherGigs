@@ -2,23 +2,48 @@
 import React, { useEffect, useState } from "react";
 import { MapPin } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useBalance, useAccount } from "wagmi";
+import { useBalance, useAccount, useReadContract } from "wagmi";
+import { etherGigsAbi, etherGigsAddress } from "@/lib/contract/EtherGigs";
+
+interface User {
+  name: string;
+  location: string;
+  userType: string;
+}
 
 const ClientWallet = () => {
   const { address } = useAccount();
 
+  const [user, setUser] = useState<User>({
+    name: "",
+    location: "",
+    userType: "",
+  });
+
+  const { data: userData, isError } = useReadContract({
+    abi: etherGigsAbi,
+    address: etherGigsAddress,
+    functionName: "getUser",
+    args: [address],
+  });
+
   const result = useBalance({
     address: address,
   });
-  // console.log(result.data);
+
+  useEffect(() => {
+    if (userData)
+      //@ts-ignore
+      setUser(userData);
+  }, [userData]);
 
   return (
     <div className="flex flex-col gap-10 p-16">
       <div className="flex flex-col items-center gap-8 pt-8">
-        <p className="font-semibold text-6xl">Hello, XYZ</p>
+        <p className="font-semibold text-6xl">{user.name}</p>
         <div className="flex gap-4">
           <MapPin />
-          <p>On-Chain</p>
+          <p>{user.location}</p>
         </div>
       </div>
       <Card className=" bg-opacity-65 shadow-md mx-72">

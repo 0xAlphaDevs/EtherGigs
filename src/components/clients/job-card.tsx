@@ -103,7 +103,7 @@ export function JobCard({ job }: { job: Job }) {
                 />
               </DialogContent>
             </Dialog>
-            <Button>Close Job</Button>
+            {/* <Button>Close Job</Button> */}
           </div>
         </CardFooter>
       </Card>

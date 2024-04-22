@@ -29,25 +29,24 @@ const FreelancerDashboard = () => {
     args: [address],
   });
 
-  // 🟡
-  // useEffect(() => {
-  //   if (userData && !isError) {
-  //     //@ts-ignore
-  //     switch (userData.userType) {
-  //       case "client":
-  //         router.push("/client-dashboard");
-  //         break;
-  //       case "freelancer":
-  //         router.push("/freelancer-dashboard");
-  //         break;
-  //       default:
-  //         router.push("/home");
-  //         break;
-  //     }
-  //   } else {
-  //     router.push("/home");
-  //   }
-  // }, [userData, isError]);
+  useEffect(() => {
+    if (userData && !isError) {
+      //@ts-ignore
+      switch (userData.userType) {
+        case "client":
+          router.push("/client-dashboard");
+          break;
+        case "freelancer":
+          router.push("/freelancer-dashboard");
+          break;
+        default:
+          router.push("/home");
+          break;
+      }
+    } else {
+      router.push("/home");
+    }
+  }, [userData, isError]);
 
   useEffect(() => {
     if (data) {
