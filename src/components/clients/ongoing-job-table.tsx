@@ -74,21 +74,23 @@ export function OngoingJobtable({
       header: "Job Id",
       cell: ({ row }) => {
         const jobId = parseInt(row.getValue("jobId"));
-        return <div className="capitalize">{jobId}</div>;
+        return <div className="capitalize font-bold">{jobId}</div>;
       },
     },
     {
       accessorKey: "createdBy",
-      header: "Gigster",
+      header: "Freelancer",
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("createdBy")}</div>
+        <div className="capitalize font-normal">
+          {row.getValue("createdBy")}
+        </div>
       ),
     },
     {
       accessorKey: "status",
       header: "Status",
       cell: ({ row }) => (
-        <div className=" uppercase cursor-default font-semibold px-2 bg-green-50 hover:text-white hover:bg-green-900 inline-block rounded-full ">
+        <div className=" uppercase cursor-default text-white font-semibold px-2 bg-green-800 hover:text-white hover:bg-green-900 inline-block rounded-full ">
           {row.getValue("status")}
         </div>
       ),
@@ -115,13 +117,9 @@ export function OngoingJobtable({
       accessorKey: "bid",
       header: () => <div className="">Budget</div>,
       cell: ({ row }) => {
-        const amount = Number(row.getValue("bid")) / 10 ** 18;
-        const formatted = new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-        }).format(amount);
+        const amount = parseFloat(row.getValue("bid")) / 10 ** 18;
 
-        return <div className=" font-medium">{formatted}</div>;
+        return <div className=" font-medium text-blue-500">{amount} XTZ</div>;
       },
     },
     {

@@ -76,7 +76,7 @@ const SendProposalForm = ({ jobId }: { jobId: string }) => {
             <span className="w-2"> </span>Apply
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px] bg-white">
           {isPending ? (
             <div className="flex flex-col items-center justify-center h-40 gap-4">
               <p>Creating Proposal ...</p>
@@ -91,8 +91,9 @@ const SendProposalForm = ({ jobId }: { jobId: string }) => {
                       Enter details to send a proposal.
                     </DialogDescription>
                   </DialogHeader>
+
                   <form onSubmit={handleSubmitRequest}>
-                    <div className="grid gap-4 py-4">
+                    <div className="grid gap-4 py-4 ">
                       <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="description" className="text-right">
                           Description

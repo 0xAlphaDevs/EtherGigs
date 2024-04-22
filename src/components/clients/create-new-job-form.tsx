@@ -61,7 +61,6 @@ const CreateNewJobForm = () => {
 
   async function createJob() {
     try {
-      // setIsLoading(true);
       const newJobData = constructJobData(
         formData.title,
         formData.description,
@@ -82,9 +81,6 @@ const CreateNewJobForm = () => {
           Number(newJobData.budget) * 10 ** 18,
         ],
       });
-      //   const result = await saveJobData(formData.title);
-
-      // setIsLoading(false);
     } catch (error) {
       console.error("Error submitting record:", error);
       // setIsLoading(false);
@@ -177,7 +173,7 @@ const CreateNewJobForm = () => {
                           name="userType"
                         >
                           <SelectTrigger className="col-span-3">
-                            <SelectValue placeholder="Select a user type" />
+                            <SelectValue placeholder="Select job category" />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
@@ -206,7 +202,7 @@ const CreateNewJobForm = () => {
                         <Input
                           id="Tags"
                           type="number"
-                          placeholder="Enter amount"
+                          placeholder="Enter amount in XTZ"
                           className="col-span-3"
                           value={formData.budget}
                           onChange={(e: { target: { value: any } }) =>

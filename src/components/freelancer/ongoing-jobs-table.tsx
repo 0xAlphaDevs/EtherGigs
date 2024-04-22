@@ -88,12 +88,7 @@ export function OngoinJobsTable({
       header: () => <div className="">Bid</div>,
       cell: ({ row }) => {
         const amount = parseFloat(row.getValue("bid")) / 10 ** 18;
-        const formatted = new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-        }).format(amount);
-
-        return <div className=" font-medium">{formatted}</div>;
+        return <div className=" font-medium">{amount} XTZ</div>;
       },
     },
     //TO DO
@@ -139,10 +134,7 @@ export function OngoinJobsTable({
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              className="ml-auto bg-green-300 "
-            >
+            <Button variant="outline" className="ml-auto bg-green-300 ">
               Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -171,22 +163,16 @@ export function OngoinJobsTable({
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow
-                key={headerGroup.id}
-                className=""
-              >
+              <TableRow key={headerGroup.id} className="">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead
-                      key={header.id}
-                      className="font-bold"
-                    >
+                    <TableHead key={header.id} className="font-bold">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </TableHead>
                   );
                 })}

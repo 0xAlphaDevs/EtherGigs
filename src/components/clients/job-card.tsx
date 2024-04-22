@@ -19,16 +19,15 @@ import {
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { RecievedProposalsTable } from "./received-proposals-table";
 import { Job, Proposal } from "@/lib/types";
-import { useContractRead } from "wagmi";
-
-
+import { useReadContract } from "wagmi";
+import { etherGigsAbi, etherGigsAddress } from "@/lib/contract/EtherGigs";
 
 export function JobCard({ job }: { job: Job }) {
   const [receivedProposals, setReceivedProposals] = useState<Proposal[]>([]);
   // fetch all proposals for this job
-  const { data } = useContractRead({
-    abi: ,
-    address: "",
+  const { data } = useReadContract({
+    abi: etherGigsAbi,
+    address: etherGigsAddress,
     functionName: "getAllActiveProposals",
     args: [job.jobId],
   });
@@ -48,12 +47,7 @@ export function JobCard({ job }: { job: Job }) {
 
   return (
     <div className="p-8 grid gap-8 ">
-      <Card
-        key={job.jobId}
-        className={cn(
-          "bg-opacity-65 shadow-lg"
-        )}
-      >
+      <Card key={job.jobId} className={cn("bg-opacity-65 shadow-lg")}>
         <CardHeader>
           <CardTitle className="flex justify-between items-center">
             {job.title}
@@ -71,10 +65,7 @@ export function JobCard({ job }: { job: Job }) {
             <div className="flex gap-4">
               <div className="text-lg font-thin">Skills Required :</div>
               {job.tags.map((tag, index) => (
-                <Badge
-                  key={index}
-                  className="text-sm bg-green-900  "
-                >
+                <Badge key={index} className="text-sm bg-green-900  ">
                   {tag}
                 </Badge>
               ))}
@@ -83,7 +74,8 @@ export function JobCard({ job }: { job: Job }) {
           <div className="flex gap-2 items-center">
             <BadgeDollarSignIcon className="h-5" />
             <div className="text-lg font-thin">
-              Budget : $ {Number(job.budget) / 10 ** 18}
+              Budget : {Number(job.budget) / 10 ** 18}{" "}
+              <span className="font-semibold">XTZ</span>
             </div>
           </div>
           <div className="flex gap-2 items-center">
@@ -104,7 +96,7 @@ export function JobCard({ job }: { job: Job }) {
               <DialogTrigger asChild>
                 <Button>View Proposals</Button>
               </DialogTrigger>
-              <DialogContent className=" max-w-[90%]">
+              <DialogContent className=" max-w-[95%] h-[90vh] bg-white">
                 <RecievedProposalsTable
                   jobTitle={job.title}
                   receivedProposals={receivedProposals}

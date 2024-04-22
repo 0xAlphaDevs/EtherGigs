@@ -1,11 +1,12 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react";
 import { Job } from "@/lib/types";
 import { Input } from "@/components/ui/input";
 import { JobCard } from "@/components/freelancer/job-card";
-import { useAccount, useContractRead } from "wagmi";
+import { useAccount, useContractRead, useReadContract } from "wagmi";
 import { useRouter } from "next/navigation";
+import { etherGigsAbi, etherGigsAddress } from "@/lib/contract/EtherGigs";
 
 const FreelancerDashboard = () => {
   const router = useRouter();
@@ -14,36 +15,39 @@ const FreelancerDashboard = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
 
-  const { data } = useContractRead({
-    abi: ,
-    address: "",
+  const { data } = useReadContract({
+    abi: etherGigsAbi,
+    address: etherGigsAddress,
     functionName: "getAllActiveJobs",
     args: [],
   });
 
-  const { } = useContractRead({
-    abi: ,
-    address: "",
+  const { data: userData, isError } = useReadContract({
+    abi: etherGigsAbi,
+    address: etherGigsAddress,
     functionName: "getUser",
     args: [address],
-    onSuccess: (data: any) => {
-      switch (data.userType) {
-        case "client":
-          router.push("/client-dashboard");
-          break;
-        case "freelancer":
-          router.push("/freelancer-dashboard");
-          break;
-        default:
-          router.push("/");
-          break;
-      }
-    },
-    onError: (error: any) => {
-      console.log(error);
-      router.push("/");
-    },
   });
+
+  // 🟡
+  // useEffect(() => {
+  //   if (userData && !isError) {
+  //     //@ts-ignore
+  //     switch (userData.userType) {
+  //       case "client":
+  //         router.push("/client-dashboard");
+  //         break;
+  //       case "freelancer":
+  //         router.push("/freelancer-dashboard");
+  //         break;
+  //       default:
+  //         router.push("/home");
+  //         break;
+  //     }
+  //   } else {
+  //     router.push("/home");
+  //   }
+  // }, [userData, isError]);
 
   useEffect(() => {
     if (data) {
@@ -75,7 +79,6 @@ const FreelancerDashboard = () => {
     setFilteredJobs(filtered);
   };
 
-
   return (
     <>
       <div className="flex flex-col px-8 py-4">
@@ -99,7 +102,7 @@ const FreelancerDashboard = () => {
         )}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default FreelancerDashboard
+export default FreelancerDashboard;

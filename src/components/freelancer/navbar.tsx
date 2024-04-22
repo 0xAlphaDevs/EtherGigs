@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { usePathname } from "next/navigation"
+import { usePathname } from "next/navigation";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -14,16 +14,14 @@ import {
 import { ConnectKitButton } from "connectkit";
 
 export function FreelancerNavbar() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <div className="flex justify-between">
       <div className="flex items-center gap-20">
         <h1 className="text-2xl font-bold relative mr-12 ">
           EtherGigs{" "}
-          <sup className="text-sm font-semibold absolute ml-2 ">
-            Freelancer
-          </sup>
+          <sup className="text-sm font-semibold absolute ml-2 ">Freelancer</sup>
         </h1>
         <NavigationMenu>
           <NavigationMenuList>
@@ -32,9 +30,7 @@ export function FreelancerNavbar() {
                 <NavigationMenuLink
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    pathname === ("/freelancer-dashboard")
-                      ? "bg-green-300"
-                      : ""
+                    pathname === "/freelancer-dashboard" ? "bg-green-300" : ""
                   )}
                 >
                   Listed Jobs
@@ -46,12 +42,10 @@ export function FreelancerNavbar() {
                 <NavigationMenuLink
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    pathname === ("/freelancer-proposals")
-                      ? "bg-green-300"
-                      : ""
+                    pathname === "/freelancer-proposals" ? "bg-green-300" : ""
                   )}
                 >
-                  Proposals
+                  Your Proposals
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
@@ -60,7 +54,7 @@ export function FreelancerNavbar() {
                 <NavigationMenuLink
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    pathname === ("/freelancer-ongoing-jobs")
+                    pathname === "/freelancer-ongoing-jobs"
                       ? "bg-green-300"
                       : ""
                   )}
@@ -74,9 +68,7 @@ export function FreelancerNavbar() {
                 <NavigationMenuLink
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    pathname === ("/freelancer-wallet")
-                      ? "bg-green-300"
-                      : ""
+                    pathname === "/freelancer-wallet" ? "bg-green-300" : ""
                   )}
                 >
                   Your Wallet

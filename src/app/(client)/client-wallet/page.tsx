@@ -6,18 +6,11 @@ import { useBalance, useAccount } from "wagmi";
 
 const ClientWallet = () => {
   const { address } = useAccount();
-  // const [balance, setBalance] = useState<any>(0.0);
 
   const result = useBalance({
     address: address,
   });
-  console.log(result.data);
-
-  // useEffect(() => {
-  //   setBalance(result.data?.value || 0.0);
-  // }, [result]);
-
-  // console.log(balance);
+  // console.log(result.data);
 
   return (
     <div className="flex flex-col gap-10 p-16">
@@ -36,7 +29,10 @@ const ClientWallet = () => {
         <CardContent className="flex flex-col gap-8 items-center">
           <p className="font-bold text-lg">Etherlink Testnet</p>
           <div>
-            Your XTZ Balance : {result.data?.formatted} {result.data?.symbol}{" "}
+            Your Balance :{" "}
+            <span className="font-semibold text-blue-500">
+              {result.data?.formatted} {result.data?.symbol}{" "}
+            </span>
           </div>
         </CardContent>
       </Card>

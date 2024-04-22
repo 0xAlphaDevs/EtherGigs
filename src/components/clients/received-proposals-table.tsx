@@ -70,28 +70,30 @@ export function RecievedProposalsTable({
       header: "Proposal Id",
       cell: ({ row }) => {
         const proposalId = parseInt(row.getValue("proposalId"));
-        return <div className="capitalize">{proposalId}</div>;
+        return <div className="capitalize font-bold">{proposalId}</div>;
       },
     },
     {
       accessorKey: "description",
       header: "Description",
-      cell: ({ row }) => <div className="">{row.getValue("description")}</div>,
+      cell: ({ row }) => (
+        <div className="font-normal">{row.getValue("description")}</div>
+      ),
     },
     {
       accessorKey: "createdAt",
       header: "Sent Date",
       cell: ({ row }) => (
-        <div className=" font-semibold px-2 bg-green-50 hover:text-white hover:bg-green-90 inline-block rounded-full ">
+        <div className=" font-semibold p-2 bg-green-50 hover:text-white hover:bg-green-90 inline-block rounded-full ">
           {row.getValue("createdAt")}
         </div>
       ),
     },
     {
       accessorKey: "createdBy",
-      header: "Gigster",
+      header: "Freelancer",
       cell: ({ row }) => (
-        <div className="lowercase">{row.getValue("createdBy")}</div>
+        <div className="lowercase font-normal">{row.getValue("createdBy")}</div>
       ),
     },
     {
@@ -99,12 +101,8 @@ export function RecievedProposalsTable({
       header: () => <div className="">Bid Amount</div>,
       cell: ({ row }) => {
         const amount = parseFloat(row.getValue("bid")) / 10 ** 18;
-        const formatted = new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-        }).format(amount);
 
-        return <div className=" font-medium">{formatted}</div>;
+        return <div className=" font-medium text-blue-500">{amount} XTZ</div>;
       },
     },
     {
@@ -130,21 +128,7 @@ export function RecievedProposalsTable({
                 Copy Proposal ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              {/* <DropdownMenuItem>
-                <Button
-                  className="w-full"
-                  onClick={() => {
-                    writeApproval({
-                      args: [
-                        "0x1FD044132dDf03dF133bC6dB12Bd7C4093857523",
-                        BigInt(proposal.bid),
-                      ],
-                    });
-                  }}
-                >
-                  Approve Work
-                </Button>
-              </DropdownMenuItem> */}
+
               <DropdownMenuItem>
                 <Button
                   className="w-full"

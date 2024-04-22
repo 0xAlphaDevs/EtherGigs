@@ -1,17 +1,18 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from 'react'
-import { Proposal } from '@/lib/types';
-import { OngoinJobsTable } from '@/components/freelancer/ongoing-jobs-table';
-import { useAccount, useContractRead } from 'wagmi';
+import React, { useEffect, useState } from "react";
+import { Proposal } from "@/lib/types";
+import { OngoinJobsTable } from "@/components/freelancer/ongoing-jobs-table";
+import { useAccount, useContractRead, useReadContract } from "wagmi";
+import { etherGigsAbi, etherGigsAddress } from "@/lib/contract/EtherGigs";
 
 const FreelancerOngoingJobs = () => {
   const { address } = useAccount();
   const [ongoingProposals, setOngoingProposals] = useState<Proposal[]>([]);
 
-  const { data } = useContractRead({
-    abi: ,
-    address: "",
+  const { data } = useReadContract({
+    abi: etherGigsAbi,
+    address: etherGigsAddress,
     functionName: "getAllProposalsByCreator",
     args: [address],
   });
@@ -32,7 +33,7 @@ const FreelancerOngoingJobs = () => {
     <div>
       <OngoinJobsTable ongoingProposals={ongoingProposals} />
     </div>
-  )
-}
+  );
+};
 
-export default FreelancerOngoingJobs
+export default FreelancerOngoingJobs;

@@ -19,15 +19,9 @@ import {
 import SendProposalForm from "./send-proposal-form";
 
 export function JobCard({ job }: { job: Job }) {
-
   return (
     <div className="p-8 grid gap-8 ">
-      <Card
-        key={job.jobId}
-        className={cn(
-          "bg-opacity-65 shadow-lg "
-        )}
-      >
+      <Card key={job.jobId} className={cn("bg-opacity-65 shadow-lg ")}>
         <CardHeader>
           <CardTitle className="flex justify-between items-center">
             {job.title}
@@ -45,10 +39,7 @@ export function JobCard({ job }: { job: Job }) {
             <div className="flex gap-4">
               <div className="text-lg font-thin">Skills Required :</div>
               {job.tags.map((tag, index) => (
-                <Badge
-                  key={index}
-                  className="text-sm bg-green-900"
-                >
+                <Badge key={index} className="text-sm bg-green-900">
                   {tag}
                 </Badge>
               ))}
@@ -57,7 +48,8 @@ export function JobCard({ job }: { job: Job }) {
           <div className="flex gap-2 items-center">
             <BadgeDollarSignIcon className="h-5" />
             <div className="text-lg font-thin">
-              Budget : $ {Number(job.budget) / 10 ** 18}
+              Budget : {Number(job.budget) / 10 ** 18}{" "}
+              <span className="font-semibold">XTZ</span>
             </div>
           </div>
           {/* <div className="flex gap-2 items-center">
