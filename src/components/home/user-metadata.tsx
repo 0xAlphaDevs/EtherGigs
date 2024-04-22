@@ -1,5 +1,3 @@
-"use client"
-
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,7 +20,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CheckCircledIcon } from "@radix-ui/react-icons";
-import { useAccount, useContractWrite } from "wagmi";
+import { useWriteContract } from "wagmi";
+import { useAccount } from "wagmi";
+import { etherGigsAbi, etherGigsAddress } from "@/lib/contract/EtherGigs";
 
 interface FormData {
   name: string;
@@ -32,18 +32,24 @@ interface FormData {
 
 export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
   const { address } = useAccount();
+
   const [formData, setFormData] = useState<FormData>({
     name: "",
     userType: "",
     location: "",
   });
 
-  const { data, isSuccess, isLoading, write } = useContractWrite({
-    address: "",
-    abi: ,
-    functionName: "createUser",
-    args: [],
+  const { isSuccess, isPending, writeContract } = useWriteContract({
   });
+
+  function handleClick() {
+    // reset all state values
+    setFormData({
+      name: "",
+      userType: "",
+      location: "",
+    });
+  }
 
   const constructUser = (name: string, userType: string, location: string) => {
     const newUser = {
@@ -63,6 +69,12 @@ export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
       );
       console.log(" Data: ", formData);
       // TO DO: call register function from smart contract
+      writeContract({
+        abi: etherGigsAbi,
+        address: etherGigsAddress,
+        functionName: 'createUser',
+        args: [newUser.name, newUser.location, newUser.userType],
+      })
       setTimeout(() => {
         setRecheckUser((prev: boolean) => !prev);
       }, 2000);
@@ -91,12 +103,12 @@ export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">
+        <Button variant="outline" onClick={handleClick}>
           Register
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
-        {isLoading ? (
+        {isPending ? (
           <div className="flex flex-col items-center justify-center h-40 gap-4">
             <p>Registering user...</p>
           </div>
@@ -126,7 +138,7 @@ export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
                       <Label htmlFor="userType" className="text-right">
-                        Username
+                        UserType
                       </Label>
                       <Select
                         onValueChange={(value: string) =>
