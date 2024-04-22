@@ -75,7 +75,7 @@ Follow these instructions to set up and run the project:
 
 ## Team
 
-Team [AlphaDevs](https://alphadevs.dev) 👇
+Team [AlphaDevs](https://www.alphadevs.dev) 👇
 
 ### Github
 
@@ -84,11 +84,11 @@ Team [AlphaDevs](https://alphadevs.dev) 👇
 
 ### Twitter / X
 
-[Harsh Tyagi](https://twitter.com/mr_harshtyagi)
+[Harsh Tyagi](https://twitter.com/0xmht)
 [Yashasvi Chaudhary](https://twitter.com/0xyshv)
 
 ## Thanks
 
-- Feel free to reach out to the [AlphaDevs team](https://alphadevs.dev) with any questions or issues.
+- Feel free to reach out to the [AlphaDevs team](https://www.alphadevs.dev) with any questions or issues.
 
 - We appreciate your interest in our project and welcome contributions and feature suggestions.
