@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CheckCircledIcon } from "@radix-ui/react-icons";
-import { useAccount } from "wagmi";
+import { useAccount, useContractWrite } from "wagmi";
 
 interface FormData {
   name: string;
@@ -32,12 +32,17 @@ interface FormData {
 
 export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
   const { address } = useAccount();
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     name: "",
     userType: "",
     location: "",
+  });
+
+  const { data, isSuccess, isLoading, write } = useContractWrite({
+    address: "",
+    abi: ,
+    functionName: "createUser",
+    args: [],
   });
 
   const constructUser = (name: string, userType: string, location: string) => {
