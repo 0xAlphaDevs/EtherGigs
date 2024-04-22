@@ -47,18 +47,20 @@ export default function Home() {
 
           <Card className="shadow-sm border-none h-full w-full bg-green-400 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
             <CardHeader>
-              <CardTitle className="text-center"></CardTitle>
+              <CardTitle className="text-center">Transaction Fee </CardTitle>
               <CardDescription className="text-center">
-
+                Very low transaction
+                fees of less than 1% and
+                get paid instantly.
               </CardDescription>
             </CardHeader>
           </Card>
 
           <Card className="shadow-sm border-none h-full w-full bg-green-400 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
             <CardHeader>
-              <CardTitle className="text-center"></CardTitle>
+              <CardTitle className="text-center">Security</CardTitle>
               <CardDescription className="text-center">
-
+                Secure and automated payments through smart contract.
               </CardDescription>
             </CardHeader>
           </Card>

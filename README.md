@@ -19,7 +19,7 @@ A Decentralized freelancing platform connecting businesses and professionals
 
 ## Deployed Contract on Etherlink Testnet
 
-- EtherGigs Smart Contract - [0x3DaA9b9f3Ba4A5828473075CE68C704FEC124E73](https://testnet-explorer.etherlink.com/address/0x3DaA9b9f3Ba4A5828473075CE68C704FEC124E73?tab=contract)
+- EtherGigs Smart Contract - [0xDd28F71e2011B59675fA4822125fCA7e581F1d4D](https://testnet-explorer.etherlink.com/address/0xDd28F71e2011B59675fA4822125fCA7e581F1d4D)
 
 ## Instructions to Setup
 
@@ -34,10 +34,6 @@ Follow these instructions to set up and run the project:
 
 ## App Demo Screenshots
 
-![image]()
-![image]()
-![image]()
-![image]()
 ![image]()
 ![image]()
 ![image]()
