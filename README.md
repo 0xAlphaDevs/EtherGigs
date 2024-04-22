@@ -15,7 +15,7 @@ A Decentralized freelancing platform connecting businesses and professionals
 ## Links
 
 - [Deployed URL](https://ethergigs.vercel.app/)
-- [Presentation](https://docs.google.com/presentation/d/1rBzU0DzhDI3uueTFAOu9C4XiJ_WGqXNnWzV9XOmkw78/edit?usp=sharing)
+- [Presentation](https://docs.google.com/presentation/d/1rBzU0DzhDI3uueTFAOu9C4XiJ_WGqXNnWzV9XOmkw78)
 
 ## Deployed Contract on Etherlink Testnet
 
