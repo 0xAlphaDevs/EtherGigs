@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Proposal } from "@/lib/types";
-import { SendProposalTable } from "@/components/freelancer/send-proposal-table";
+import { SentProposalsTable } from "@/components/freelancer/sent-proposals-table";
 import { useAccount, useContractRead, useReadContract } from "wagmi";
 import { etherGigsAbi, etherGigsAddress } from "@/lib/contract/EtherGigs";
 
@@ -26,7 +26,7 @@ const FreelancerProposals = () => {
 
   return (
     <div>
-      <SendProposalTable sentProposals={sentProposals} />
+      <SentProposalsTable sentProposals={sentProposals} />
     </div>
   );
 };

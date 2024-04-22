@@ -83,9 +83,7 @@ const FreelancerDashboard = () => {
     <>
       <div className="flex flex-col px-8 py-4">
         <div className="flex items-center justify-between">
-          <div className="text-4xl px-8 py-8 font-semibold ">
-            All Active Jobs
-          </div>
+          <div className="text-4xl py-8 font-semibold ">All Active Jobs</div>
           <Input
             placeholder="Search jobs..."
             value={searchTerm}
@@ -96,8 +94,10 @@ const FreelancerDashboard = () => {
         {filteredJobs.length > 0 ? (
           filteredJobs.map((job: Job) => <JobCard key={job.jobId} job={job} />)
         ) : (
-          <div className="text-2xl px-8 py-8 font-semibold text-center">
-            {jobs.length > 0 ? "No Matching Jobs" : "No Active Jobs"}
+          <div className="text-2xl text-gray-600 px-8 py-20 font-semibold text-center">
+            {jobs.length > 0
+              ? "No Matching Jobs"
+              : "No active Jobs available in marketplace."}
           </div>
         )}
       </div>

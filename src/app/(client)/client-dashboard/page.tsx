@@ -13,7 +13,7 @@ const ClientDashboard = () => {
   const { address } = useAccount();
   const router = useRouter();
 
-  const { data } = useReadContract({
+  const { data, isLoading } = useReadContract({
     abi: etherGigsAbi,
     address: etherGigsAddress,
     functionName: "getAllJobsByCreator",
@@ -73,8 +73,8 @@ const ClientDashboard = () => {
           </>
         ))
       ) : (
-        <div className="text-2xl px-8 py-8 font-semibold text-center">
-          No Active Jobs
+        <div className="text-2xl text-gray-600 px-8 py-20 font-semibold text-center">
+          {isLoading ? "Loading ..." : "No Active Jobs"}
         </div>
       )}
     </div>

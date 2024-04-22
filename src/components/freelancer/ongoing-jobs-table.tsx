@@ -63,7 +63,7 @@ export function OngoinJobsTable({
       header: "Job Id",
       cell: ({ row }) => {
         const jobId = parseInt(row.getValue("jobId"));
-        return <div className=""> {jobId}</div>;
+        return <div className="capitalize font-bold"> {jobId}</div>;
       },
     },
     {
@@ -71,7 +71,7 @@ export function OngoinJobsTable({
       header: "Proposal Id",
       cell: ({ row }) => {
         const proposalId = parseInt(row.getValue("proposalId"));
-        return <div className="">{proposalId}</div>;
+        return <div className="capitalize font-bold">{proposalId}</div>;
       },
     },
     {

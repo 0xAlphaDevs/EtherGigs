@@ -40,7 +40,7 @@ import {
 import { Filter } from "../home/filter";
 import { Proposal } from "@/lib/types";
 
-export function SendProposalTable({
+export function SentProposalsTable({
   sentProposals,
 }: {
   sentProposals: Proposal[];
@@ -58,11 +58,11 @@ export function SendProposalTable({
     setProposals(sentProposals);
   }, [sentProposals]);
 
-  // const statusOptions = React.useMemo(() => {
-  //   const options = sentProposals.map((row) => row.status);
-  //   const statuses = [...new Set(options)];
-  //   return statuses.map((status) => ({ value: status, label: status }));
-  // }, [sentProposals]);
+  const statusOptions = React.useMemo(() => {
+    const options = sentProposals.map((row) => row.status);
+    const statuses = [...new Set(options)];
+    return statuses.map((status) => ({ value: status, label: status }));
+  }, [sentProposals]);
 
   const columns: ColumnDef<Proposal>[] = [
     {
@@ -70,7 +70,7 @@ export function SendProposalTable({
       header: "Job Id",
       cell: ({ row }) => {
         const jobId = parseInt(row.getValue("jobId"));
-        return <div className="capitalize">{jobId}</div>;
+        return <div className="capitalize font-bold">{jobId}</div>;
       },
     },
     {
@@ -94,18 +94,14 @@ export function SendProposalTable({
       accessorKey: "status",
       header: "Status",
       cell: ({ row }) => (
-        <div className="lowercase">{row.getValue("status")}</div>
+        <div className="uppercase font-bold rounded-full">
+          {row.getValue("status")}
+        </div>
       ),
       filterFn: (row, id, value) => {
         // Here, explicitly specify the type of the 'value' parameter
-        const typedValue = value as
-          | "pending"
-          | "processing"
-          | "success"
-          | "failed";
-        return typedValue.includes(
-          row.getValue(id) as "pending" | "processing" | "success" | "failed"
-        );
+        const typedValue = value as string;
+        return typedValue.includes(row.getValue(id));
       },
     },
     {
@@ -150,13 +146,13 @@ export function SendProposalTable({
             }
             className="max-w-sm w-96 font-semibold border-green-900"
           />
-          {/* {table.getColumn("status") && (
+          {table.getColumn("status") && (
             <Filter
               column={table.getColumn("status")}
               title="Status"
               options={statusOptions}
             />
-          )} */}
+          )}
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

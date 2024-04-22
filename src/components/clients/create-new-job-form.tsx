@@ -95,7 +95,7 @@ const CreateNewJobForm = () => {
   };
 
   return (
-    <div className="flex justify-between items-center py-8 px-8">
+    <div className="flex justify-between items-center pt-8 px-8">
       <div className="text-4xl text-center font-semibold ">My Jobs</div>
       <Dialog>
         <DialogTrigger asChild>
