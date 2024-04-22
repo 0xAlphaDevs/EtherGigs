@@ -19,9 +19,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { useContractWrite } from "wagmi";
+import { useWriteContract } from "wagmi"; // 🟢
 import { PlusCircledIcon, CheckCircledIcon } from "@radix-ui/react-icons";
-
+import { etherGigsAbi, etherGigsAddress } from "@/lib/contract/EtherGigs";
 
 interface CreateJobForm {
   title: string;
@@ -38,12 +38,7 @@ const CreateNewJobForm = () => {
     budget: "",
   });
 
-  const { data, isSuccess, isLoading, write } = useContractWrite({
-    address: "",
-    abi: ,
-    functionName: "createJob",
-    args: [],
-  });
+  const { isSuccess, isPending, writeContract } = useWriteContract({});
 
   const constructJobData = (
     title: string,
@@ -75,15 +70,18 @@ const CreateNewJobForm = () => {
       );
       console.log(" Data: ", newJobData);
 
-      // write({
-      //   args: [
-      //     newJobData.title,
-      //     newJobData.description,
-      //     newJobData.createdAt,
-      //     newJobData.tags,
-      //     Number(newJobData.budget) * 10 ** 18,
-      //   ],
-      // });
+      writeContract({
+        abi: etherGigsAbi,
+        address: etherGigsAddress,
+        functionName: "createJob",
+        args: [
+          newJobData.title,
+          newJobData.description,
+          newJobData.createdAt,
+          newJobData.tags,
+          Number(newJobData.budget) * 10 ** 18,
+        ],
+      });
       //   const result = await saveJobData(formData.title);
 
       // setIsLoading(false);
@@ -111,7 +109,7 @@ const CreateNewJobForm = () => {
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px] bg-green-50">
-          {isLoading ? (
+          {isPending ? (
             <div className="flex flex-col items-center justify-center h-40 gap-4">
               {/* <Loader /> */}
               <p>Creating Job ...</p>

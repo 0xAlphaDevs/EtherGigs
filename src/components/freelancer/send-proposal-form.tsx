@@ -11,8 +11,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { useContractWrite } from "wagmi";
+import { useWriteContract } from "wagmi"; // 🟢
 import { PlusCircledIcon, CheckCircledIcon } from "@radix-ui/react-icons";
+import { etherGigsAbi, etherGigsAddress } from "@/lib/contract/EtherGigs";
 
 const SendProposalForm = ({ jobId }: { jobId: string }) => {
   const [formData, setFormData] = useState({
@@ -20,14 +21,7 @@ const SendProposalForm = ({ jobId }: { jobId: string }) => {
     bid: "",
   });
 
-  const { data, isSuccess, isLoading, write } = useContractWrite({
-    address: "",
-    abi: ,
-    functionName: "createProposal",
-    args: [],
-  });
-
-
+  const { isSuccess, isPending, writeContract } = useWriteContract({});
 
   const constructProposalData = (description: string, bid: string) => {
     const currentDate = new Date().toLocaleDateString();
@@ -50,14 +44,17 @@ const SendProposalForm = ({ jobId }: { jobId: string }) => {
       );
       console.log(" Data: ", newProposalData);
 
-      // write({
-      //   args: [
-      //     newProposalData.jobId,
-      //     newProposalData.createdAt,
-      //     Number(newProposalData.bid) * 10 ** 18,
-      //     newProposalData.description,
-      //   ],
-      // });
+      writeContract({
+        abi: etherGigsAbi,
+        address: etherGigsAddress,
+        functionName: "createProposal",
+        args: [
+          newProposalData.jobId,
+          newProposalData.createdAt,
+          Number(newProposalData.bid) * 10 ** 18,
+          newProposalData.description,
+        ],
+      });
     } catch (error) {
       console.error("Error submitting record:", error);
     }
@@ -74,15 +71,13 @@ const SendProposalForm = ({ jobId }: { jobId: string }) => {
     <div className="flex justify-between items-center ">
       <Dialog>
         <DialogTrigger asChild>
-          <Button
-            className="bg-green-950 hover:bg-green-800"
-          >
+          <Button className="bg-green-950 hover:bg-green-800">
             <PlusCircledIcon className="mt-0.5" />
             <span className="w-2"> </span>Apply
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
-          {isLoading ? (
+          {isPending ? (
             <div className="flex flex-col items-center justify-center h-40 gap-4">
               <p>Creating Proposal ...</p>
             </div>

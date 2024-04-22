@@ -38,8 +38,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Proposal } from "@/lib/types";
-import { useContractWrite } from "wagmi";
-
+import { useWriteContract } from "wagmi"; // 🟢
+import { etherGigsAbi, etherGigsAddress } from "@/lib/contract/EtherGigs";
 
 export function RecievedProposalsTable({
   jobTitle,
@@ -57,24 +57,12 @@ export function RecievedProposalsTable({
   const [rowSelection, setRowSelection] = React.useState({});
   const [proposals, setProposals] = React.useState<Proposal[]>([]);
 
-  const { data, isSuccess, isLoading, write } = useContractWrite({
-    address: "",
-    abi: ,
-    functionName: "acceptProposal",
-    args: [],
-  });
-
-  const { write: writeApproval } = useContractWrite({
-    address: "",
-    abi: ,
-    functionName: "approve",
-  });
+  const { isSuccess, isPending, writeContract } = useWriteContract({});
 
   React.useEffect(() => {
     setProposals(receivedProposals);
   }, [receivedProposals]);
   console.log(receivedProposals);
-
 
   const columns: ColumnDef<Proposal>[] = [
     {
@@ -142,7 +130,7 @@ export function RecievedProposalsTable({
                 Copy Proposal ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              {/* <DropdownMenuItem>
                 <Button
                   className="w-full"
                   onClick={() => {
@@ -156,13 +144,20 @@ export function RecievedProposalsTable({
                 >
                   Approve Work
                 </Button>
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
               <DropdownMenuItem>
                 <Button
                   className="w-full"
                   onClick={() => {
-                    write({
+                    // write({
+                    //   args: [proposal.proposalId, proposal.jobId],
+                    // });
+                    writeContract({
+                      abi: etherGigsAbi,
+                      address: etherGigsAddress,
+                      functionName: "acceptProposal",
                       args: [proposal.proposalId, proposal.jobId],
+                      value: BigInt(proposal.bid),
                     });
                     console.log(
                       "Accepting proposal",
@@ -219,10 +214,7 @@ export function RecievedProposalsTable({
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              className="ml-auto bg-green-300 "
-            >
+            <Button variant="outline" className="ml-auto bg-green-300 ">
               Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -251,22 +243,16 @@ export function RecievedProposalsTable({
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow
-                key={headerGroup.id}
-                className=""
-              >
+              <TableRow key={headerGroup.id} className="">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead
-                      key={header.id}
-                      className="font-bold "
-                    >
+                    <TableHead key={header.id} className="font-bold ">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </TableHead>
                   );
                 })}

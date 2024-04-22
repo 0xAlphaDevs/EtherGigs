@@ -39,7 +39,8 @@ import {
 } from "@/components/ui/table";
 import { Filter } from "../home/filter";
 import { Proposal } from "@/lib/types";
-import { useContractWrite } from "wagmi";
+import { useWriteContract } from "wagmi"; // 🟢
+import { etherGigsAbi, etherGigsAddress } from "@/lib/contract/EtherGigs";
 
 export function OngoingJobtable({
   ongoingProposals,
@@ -55,22 +56,17 @@ export function OngoingJobtable({
   const [rowSelection, setRowSelection] = React.useState({});
   const [proposals, setProposals] = React.useState<Proposal[]>([]);
 
-  const { data, isSuccess, isLoading, write } = useContractWrite({
-    address: "",
-    abi: ,
-    functionName: "approveJobCompletion",
-  });
-
+  const { isSuccess, isPending, writeContract } = useWriteContract({});
 
   React.useEffect(() => {
     setProposals(ongoingProposals);
   }, [ongoingProposals]);
 
-  // const statusOptions = React.useMemo(() => {
-  //   const options = ongoingProposals.map((row) => row.status);
-  //   const statuses = [...new Set(options)];
-  //   return statuses.map((status) => ({ value: status, label: status }));
-  // }, [ongoingProposals]);
+  const statusOptions = React.useMemo(() => {
+    const options = ongoingProposals.map((row) => row.status);
+    const statuses = [...new Set(options)];
+    return statuses.map((status) => ({ value: status, label: status }));
+  }, [ongoingProposals]);
 
   const columns: ColumnDef<Proposal>[] = [
     {
@@ -137,7 +133,10 @@ export function OngoingJobtable({
         return (
           <Button
             onClick={() => {
-              write({
+              writeContract({
+                abi: etherGigsAbi,
+                address: etherGigsAddress,
+                functionName: "approveJobCompletion",
                 args: [proposal.jobId, proposal.proposalId],
               });
             }}
@@ -180,21 +179,17 @@ export function OngoingJobtable({
             }
             className="max-w-sm w-96 font-semibold border-green-900"
           />
-          {/* {table.getColumn("status") && (
+          {table.getColumn("status") && (
             <Filter
               column={table.getColumn("status")}
               title="Status"
               options={statusOptions}
             />
-
-          )} */}
+          )}
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              className="ml-auto bg-green-300"
-            >
+            <Button variant="outline" className="ml-auto bg-green-300">
               Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -223,22 +218,16 @@ export function OngoingJobtable({
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow
-                key={headerGroup.id}
-                className=""
-              >
+              <TableRow key={headerGroup.id} className="">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead
-                      key={header.id}
-                      className="font-bold"
-                    >
+                    <TableHead key={header.id} className="font-bold">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </TableHead>
                   );
                 })}

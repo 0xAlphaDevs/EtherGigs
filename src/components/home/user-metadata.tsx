@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CheckCircledIcon } from "@radix-ui/react-icons";
-import { useWriteContract } from "wagmi";
+import { useWriteContract } from "wagmi"; // 🟢
 import { useAccount } from "wagmi";
 import { etherGigsAbi, etherGigsAddress } from "@/lib/contract/EtherGigs";
 
@@ -38,9 +38,8 @@ export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
     userType: "",
     location: "",
   });
-
-  const { isSuccess, isPending, writeContract } = useWriteContract({
-  });
+  // 🟢
+  const { isSuccess, isPending, writeContract } = useWriteContract({});
 
   function handleClick() {
     // reset all state values
@@ -68,13 +67,13 @@ export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
         formData.location
       );
       console.log(" Data: ", formData);
-      // TO DO: call register function from smart contract
+      // TO DO: call register function from smart contract 🟢
       writeContract({
         abi: etherGigsAbi,
         address: etherGigsAddress,
-        functionName: 'createUser',
+        functionName: "createUser",
         args: [newUser.name, newUser.location, newUser.userType],
-      })
+      });
       setTimeout(() => {
         setRecheckUser((prev: boolean) => !prev);
       }, 2000);
