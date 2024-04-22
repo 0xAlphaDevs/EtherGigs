@@ -125,7 +125,7 @@ export function OngoingJobtable({
       enableHiding: false,
       cell: ({ row }) => {
         const proposal = row.original;
-
+        // TO DO: approveJobCompletionFunction
         return (
           <Button>
             Approve Completion
