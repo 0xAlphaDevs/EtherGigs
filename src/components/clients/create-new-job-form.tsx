@@ -19,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { useContractWrite } from "wagmi";
 import { PlusCircledIcon, CheckCircledIcon } from "@radix-ui/react-icons";
 
 
@@ -30,13 +31,18 @@ interface CreateJobForm {
 }
 
 const CreateNewJobForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [formData, setFormData] = useState<CreateJobForm>({
     title: "",
     description: "",
     tags: "",
     budget: "",
+  });
+
+  const { data, isSuccess, isLoading, write } = useContractWrite({
+    address: "",
+    abi: ,
+    functionName: "createJob",
+    args: [],
   });
 
   const constructJobData = (

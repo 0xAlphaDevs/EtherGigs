@@ -19,11 +19,32 @@ import {
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { RecievedProposalsTable } from "./received-proposals-table";
 import { Job, Proposal } from "@/lib/types";
+import { useContractRead } from "wagmi";
 
 
 
 export function JobCard({ job }: { job: Job }) {
   const [receivedProposals, setReceivedProposals] = useState<Proposal[]>([]);
+  // fetch all proposals for this job
+  const { data } = useContractRead({
+    abi: ,
+    address: "",
+    functionName: "getAllActiveProposals",
+    args: [job.jobId],
+  });
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      // filter data where job.createdAt is not empty
+
+      const filterData = (data as Proposal[]).filter((proposal: Proposal) => {
+        return proposal.createdAt !== "";
+      });
+
+      setReceivedProposals(filterData as Proposal[]);
+    }
+  }, [data]);
 
   return (
     <div className="p-8 grid gap-8 ">
@@ -68,7 +89,7 @@ export function JobCard({ job }: { job: Job }) {
           <div className="flex gap-2 items-center">
             <BookUser className="h-5" />
             <div className="text-lg font-thin">
-              Total Recieved Proposals : receivedProposals l
+              Total Recieved Proposals : {receivedProposals.length}
             </div>
           </div>
         </CardContent>

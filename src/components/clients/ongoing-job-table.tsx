@@ -39,6 +39,7 @@ import {
 } from "@/components/ui/table";
 import { Filter } from "../home/filter";
 import { Proposal } from "@/lib/types";
+import { useContractWrite } from "wagmi";
 
 export function OngoingJobtable({
   ongoingProposals,
@@ -53,6 +54,13 @@ export function OngoingJobtable({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
   const [proposals, setProposals] = React.useState<Proposal[]>([]);
+
+  const { data, isSuccess, isLoading, write } = useContractWrite({
+    address: "",
+    abi: ,
+    functionName: "approveJobCompletion",
+  });
+
 
   React.useEffect(() => {
     setProposals(ongoingProposals);
@@ -127,7 +135,13 @@ export function OngoingJobtable({
         const proposal = row.original;
         // TO DO: approveJobCompletionFunction
         return (
-          <Button>
+          <Button
+            onClick={() => {
+              write({
+                args: [proposal.jobId, proposal.proposalId],
+              });
+            }}
+          >
             Approve Completion
           </Button>
         );

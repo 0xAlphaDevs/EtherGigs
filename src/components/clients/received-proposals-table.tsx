@@ -38,6 +38,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Proposal } from "@/lib/types";
+import { useContractWrite } from "wagmi";
 
 
 export function RecievedProposalsTable({
@@ -55,6 +56,25 @@ export function RecievedProposalsTable({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
   const [proposals, setProposals] = React.useState<Proposal[]>([]);
+
+  const { data, isSuccess, isLoading, write } = useContractWrite({
+    address: "",
+    abi: ,
+    functionName: "acceptProposal",
+    args: [],
+  });
+
+  const { write: writeApproval } = useContractWrite({
+    address: "",
+    abi: ,
+    functionName: "approve",
+  });
+
+  React.useEffect(() => {
+    setProposals(receivedProposals);
+  }, [receivedProposals]);
+  console.log(receivedProposals);
+
 
   const columns: ColumnDef<Proposal>[] = [
     {
@@ -125,6 +145,14 @@ export function RecievedProposalsTable({
               <DropdownMenuItem>
                 <Button
                   className="w-full"
+                  onClick={() => {
+                    writeApproval({
+                      args: [
+                        "0x1FD044132dDf03dF133bC6dB12Bd7C4093857523",
+                        BigInt(proposal.bid),
+                      ],
+                    });
+                  }}
                 >
                   Approve Work
                 </Button>
@@ -132,6 +160,16 @@ export function RecievedProposalsTable({
               <DropdownMenuItem>
                 <Button
                   className="w-full"
+                  onClick={() => {
+                    write({
+                      args: [proposal.proposalId, proposal.jobId],
+                    });
+                    console.log(
+                      "Accepting proposal",
+                      proposal.proposalId,
+                      proposal.jobId
+                    );
+                  }}
                 >
                   Accept
                 </Button>
