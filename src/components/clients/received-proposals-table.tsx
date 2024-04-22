@@ -126,7 +126,7 @@ export function RecievedProposalsTable({
                 <Button
                   className="w-full"
                 >
-                  Approve DeWork
+                  Approve Work
                 </Button>
               </DropdownMenuItem>
               <DropdownMenuItem>
