@@ -3,7 +3,7 @@ export type User = {
   location: string;
   userType: string;
   rating: number;
-  amountSpent: number;
+  xtzSpent: number;
 };
 
 export type Job = {
