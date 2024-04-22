@@ -4,11 +4,59 @@ import React, { useEffect, useState } from "react";
 import { Job } from "@/lib/types";
 import { Input } from "@/components/ui/input";
 import { JobCard } from "@/components/freelancer/job-card";
+import { useAccount, useContractRead } from "wagmi";
+import { useRouter } from "next/navigation";
 
 const FreelancerDashboard = () => {
+  const router = useRouter();
+  const { address } = useAccount();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
+
+  const { data } = useContractRead({
+    abi: ,
+    address: "",
+    functionName: "getAllActiveJobs",
+    args: [],
+  });
+
+  const { } = useContractRead({
+    abi: ,
+    address: "",
+    functionName: "getUser",
+    args: [address],
+    onSuccess: (data: any) => {
+      switch (data.userType) {
+        case "client":
+          router.push("/client-dashboard");
+          break;
+        case "freelancer":
+          router.push("/freelancer-dashboard");
+          break;
+        default:
+          router.push("/");
+          break;
+      }
+    },
+    onError: (error: any) => {
+      console.log(error);
+      router.push("/");
+    },
+  });
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      // filter data where job.createdAt is not empty
+
+      const filterData = (data as Job[]).filter((job: Job) => {
+        return job.createdAt !== "";
+      });
+      setJobs(filterData as Job[]);
+      setFilteredJobs(filterData as Job[]);
+    }
+  }, [data]);
 
   const handleSearchInputChange = (event: any) => {
     const newSearchTerm = event.target.value;

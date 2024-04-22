@@ -11,15 +11,22 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { useContractWrite } from "wagmi";
 import { PlusCircledIcon, CheckCircledIcon } from "@radix-ui/react-icons";
 
 const SendProposalForm = ({ jobId }: { jobId: string }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [formData, setFormData] = useState({
     description: "",
     bid: "",
   });
+
+  const { data, isSuccess, isLoading, write } = useContractWrite({
+    address: "",
+    abi: ,
+    functionName: "createProposal",
+    args: [],
+  });
+
 
 
   const constructProposalData = (description: string, bid: string) => {

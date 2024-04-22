@@ -102,7 +102,7 @@ export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
                 <DialogHeader>
                   <DialogTitle>Enter Details</DialogTitle>
                   <DialogDescription>
-                    Register your details here to access the DeWork.
+                    Register your details here to access EtherGigs.
                   </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleSubmitRequest}>
